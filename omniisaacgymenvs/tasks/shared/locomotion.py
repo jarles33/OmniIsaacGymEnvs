@@ -124,6 +124,7 @@ class LocomotionTask(RLTask):
 
         self.actions = actions.clone().to(self._device)
         forces = self.actions * self.joint_gears * self.power_scale
+        # print(f"==== forces = {forces}")
 
         indices = torch.arange(self._robots.count, dtype=torch.int32, device=self._device)
 
@@ -255,6 +256,18 @@ def get_observations(
     torso_quat, up_proj, heading_proj, up_vec, heading_vec = compute_heading_and_up(
         torso_rotation, inv_start_rot, to_target, basis_vec0, basis_vec1, 2
     )
+    # print("=============================")
+    # print(f"torso_rotation: {torso_rotation}")
+    # print(f"inv_start_rot: {inv_start_rot}")
+    # print(f"to_target: {to_target}")
+    # print(f"basis_vec0: {basis_vec0}")
+    # print(f"basis_vec1: {basis_vec1}")
+    # print("------")
+    # print(f"torso_quat: {torso_quat}")
+    # print(f"up_proj: {up_proj}")
+    # print(f"heading_proj: {heading_proj}")
+    # print(f"up_vec: {up_vec}")
+    # print(f"heading_vec: {heading_vec}")
 
     vel_loc, angvel_loc, roll, pitch, yaw, angle_to_target = compute_rot(
         torso_quat, velocity, ang_velocity, targets, torso_position
